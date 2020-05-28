@@ -102,6 +102,11 @@ server <- function(input, output, session) {
         leaflet() %>%
             addProviderTiles(providers$CartoDB.Positron,
                              options = providerTileOptions(noWrap = TRUE))%>%
+            addMeasure(
+                primaryLengthUnit = "meters",
+                primaryAreaUnit = "sqmeters",
+                activeColor = "#3D535D",
+                completedColor = "#7D4479") %>% 
             addAwesomeMarkers(
                 lng=initStart[1],
                 lat=initStart[2],
