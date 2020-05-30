@@ -23,7 +23,12 @@ initPath <- shortest_paths(graph,
                            output="epath") 
 
 ui <- dashboardPage(
-    dashboardHeader(title="SG Routing"),
+    dashboardHeader(title="SG Routing",
+                    tags$li(a(href="http://apps.artidata.io",
+                              icon("home"),
+                              title="apps.artidata.io",
+                              style="cursor: pointer;"),
+                            class="dropdown")),
     dashboardSidebar(disable=T),
     dashboardBody(
         fluidRow(
@@ -110,7 +115,6 @@ server <- function(input, output, session) {
             addAwesomeMarkers(
                 lng=initStart[1],
                 lat=initStart[2],
-                #label="start",
                 options=markerOptions(draggable=T),
                 icon=awesomeIcons(
                     icon = 'ios-close',
@@ -121,20 +125,13 @@ server <- function(input, output, session) {
             addAwesomeMarkers(
                 lng=initEnd[1], 
                 lat=initEnd[2], 
-                #label="end",
                 options=markerOptions(draggable=T),
                 icon=awesomeIcons(
                     icon = 'ios-close',
                     iconColor = 'black',
                     library = 'ion',
                     markerColor = "red"),
-                layerId="pinEnd")# %>% 
-            # addPolylines(data=graph %>%
-            #                  edge_attr("geometry",initPath$epath[[1]]) %>%
-            #                  st_as_sfc(crs=4326))# %>%
-            # addCircleMarkers(lng=c(initStart[1],initEnd[1]),
-            #                  lat=c(initStart[2],initEnd[2]),layerId="test")
-    })
+                layerId="pinEnd")})
     
     observeEvent(input$map_marker_mouseout,{
         #print(input$map_marker_mouseout)
